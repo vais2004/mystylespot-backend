@@ -100,8 +100,23 @@ app.get('/outfit/category/:outfitCategory', async (req,res)=>{
 
 // get category by id
 
+async function readOutfitCategoryById(outfitId) {
+    try{
+        const outfit = await Category.findById({id:outfitId})
+        return outfit
+    }catch(error){
+        throw error
+    }
+}
 
+app.get('outfit/category/:outfitId', async(req,res)=>{
+    try{
+        const outfit = await readByCategories
 
+    }catch(error){
+        res.status(500).json({error:'Failed to fetch data.'})
+    }
+})   
 
 const PORT =3000
 app.listen(PORT, ()=>{
