@@ -25,6 +25,15 @@ const OutfitSchema= new mongoose.Schema({
                 max:5,
                 required:true
             },
+            size:{
+                type:String,
+                required:true,
+                enum:['S','M','XL','XXL']
+            },
+            description:{
+                type:String,
+                required:true
+            }
         },
             {
                 timestamps:true

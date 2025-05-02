@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+
 const cors = require("cors");
 const corsOptions = {
   origin: "*",
@@ -16,6 +17,40 @@ const Outfit = require('./models/outfit.models')
 const Category = require('./models/category.models')
 const {error} =require('console');
 const { read } = require('fs');
+const { json } = require('stream/consumers');
+
+
+
+
+// const fs =require('fs')
+// const jsonData =fs.readFileSync('outfits.json','utf-8')
+
+// const outfitsData=JSON.parse(jsonData) 
+// function seedData(){
+//     try{
+//         for(const outfitData of outfitsData ){
+//             const newOutfit= new Outfit({
+//                 title:outfitData.title,
+//                 imgUrl:outfitData.imgUrl,
+//                 category:outfitData.category,
+//                 price:outfitData.price,
+//                 rating:outfitData.rating,
+//                 description:outfitData.description,
+//                 size:outfitData.size
+//             })
+//             newOutfit.save()
+//             //console.log(newOutfit.title)
+//         }
+//     }catch(error){
+//         console.log('Error seeding the data:',error)
+// }
+// }
+
+// seedData()
+
+
+
+
 
 app.use(express.json())
 
@@ -49,7 +84,7 @@ app.get('/outfit', async(req,res)=>{
 
 async function readOutfitById(outfitId) {
     try{ 
-        const outfit = await Outfit.findById({outfitId})
+        const outfit = await Outfit.findById(outfitId)
         return outfit
     }catch(error){
         throw error
@@ -77,7 +112,7 @@ app.get('/outfit/:outfitId', async (req,res)=>{
 
 async function readByCategories(outfitCategory){
     try{
-        const categories= await Category.find({category:outfitCategory})
+        const categories= await Outfit.find({category:outfitCategory})
         return categories
     }catch(error){
         throw error
@@ -86,10 +121,10 @@ async function readByCategories(outfitCategory){
 
 app.get('/outfit/category/:outfitCategory', async (req,res)=>{
     try{
-        const outfit= await readByCategories(req.params.outfitCategory)
+        const outfits= await readByCategories(req.params.outfitCategory)
 
-        if(outfit){ 
-            res.json(outfit)   
+        if(outfits.length>0){ 
+            res.json(outfits)   
         }else{
             res.status(404).json({error:'outfit not found'})
         }        
@@ -100,18 +135,30 @@ app.get('/outfit/category/:outfitCategory', async (req,res)=>{
 
 // get category by id
 
+// get category by id
+
 async function readOutfitCategoryById(outfitId) {
     try{
-        const outfit = await Category.findById({id:outfitId})
+        const outfit = await Category.findById(outfitId)
         return outfit
     }catch(error){
         throw error
     }
 }
 
-app.get('outfit/category/:outfitId', async(req,res)=>{
+app.get('/outfit/category/:outfitId', async(req,res)=>{
     try{
-        const outfit = await readByCategories
+        const category = await readOutfitCategoryById(req.params.outfitId)
+
+        if (category) {
+            res.json({
+                data: {
+                    category: category
+                }
+            });
+        } else {
+            res.status(404).json({ error: 'Category not found' });
+        }
 
     }catch(error){
         res.status(500).json({error:'Failed to fetch data.'})

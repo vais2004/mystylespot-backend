@@ -1,0 +1,122 @@
+
+       [{
+           "id":1,
+           "title":"Men's Denim Jacket",
+           "imgUrl":"https://images-na.ssl-images-amazon.com/images/I/71ltVJH47%2BL._AC_UL1335_.jpg",
+           "category":"Men",
+           "price":550,
+           "rating":4,
+           "description":"Elevate your casual wardrobe with our meticulously crafted Washed Denim Jacket, designed to blend classic aesthetics with modern comfort.  Key Features: Premium Quality Denim: Made from high-quality denim fabric that's been expertly washed for a soft, lived-in feel. Tailored Fit: Designed to provide a flattering silhouette without compromising on comfort, ensuring a stylish look that complements any body type.  Versatile Wardrobe Staple: Ideal for layering over t-shirts, hoodies, or sweaters, making it suitable for a variety of occasions from casual outings to weekend getaways.",
+           "size":"XXL"
+       },
+       {
+           "id":2,
+           "title":"Jeans",
+           "imgUrl":"https://oldnavy.gap.com/webcontent/0013/063/204/cn13063204.jpg",
+           "category":"Men",
+           "price":320,
+           "rating":3,
+           "description":"Elevate your denim game with these stylish blue jeans for men. Crafted from a comfortable cotton blend, they offer the perfect mix of durability and flexibility. The mid-waist and slim fit provide a modern, comfortable fit. A subtle brand carrier detail adds a touch of authenticity to the classic design. Five pockets offer ample storage for your everyday essentials.",
+           "size":"XXL"
+       },
+       {
+           "id":3,
+           "title":"T-Shirt",
+           "imgUrl":"https://i5.walmartimages.com/asr/38ea6606-e5a2-4d29-9ae5-2952d7173b8b_1.44e5c3267324f91822dda55e193abed7.jpeg",
+           "category":"Men",
+           "price":250,
+           "rating":2,
+           "description":"The classic versatile polo tees in timeless colours will be a special addition to your wardrobe. Made out of high quality mercerized cotton fabrics, these polo shirts are crafted to perfection. The jacquard knit on the collar ensures that they do not curl up. The Polos will not fade with time due to the high quality dyes used. These classics could be paired up with chinos for your golf mornings….. equally good they look when you wear them with jeans or shorts for those informal occasions.",
+           "size":"XL"
+       },
+       {
+           "id":4,
+           "title":"Shirt",
+           "imgUrl":"https://i.pinimg.com/originals/4e/b7/79/4eb77999f1c9eb7c321b2c961b30edc9.jpg",
+           "category":"Men",
+           "price":450,
+           "rating":5,
+           "description":"Long lasting fabric and trendy colors make it evergreen for casual and formal usage. You can use it on jeans as well as it is appropriate as formal office wear. Acurate stitching by skilled workers gives it authentic classic look. You will love to wear it for multi purpose use as shirts boys men, shirt for men look, shirts for men stylish, casual shirt, shirts for men stylish look branded.Enhance your look by wearing this trendy shirt.",
+           "size":"M"
+       },
+       {
+           "id":5,
+           "title":"Sweetheart Neck Top",
+           "imgUrl":"https://i5.walmartimages.com/asr/8ba38ab1-4800-48ec-943d-cd6f5eac75e6.6a25ff69eef208f472cd11ecf7b7d9b1.jpeg?odnWidth=612&odnHeight=612&odnBg=ffffff",
+           "category":"Women",
+           "price":250,
+           "rating":5,
+           "description":"Sweetheart Neck Top perfectly represents the brand’s dedication to crafting fashionable, high-quality, and affordable clothing for the modern woman.The sweetheart neckline provides a flattering and feminine look, while the sleeveless design keeps it sleek and modern. Whether you're dressing up for a night out or heading to a festive event, this top adds just the right amount of sparkle and sophistication.",
+           "size":"XL"
+       },
+       {
+           "id":6,
+           "title":"Skirt and Top",
+           "imgUrl":"https://i5.walmartimages.com/asr/ac38e451-b48e-46c6-8cc1-4f6b81c5dd38_1.045c6da88735c8179eeeba8a7ab11dd9.jpeg",
+           "category":"Women",
+           "price":350,
+           "rating":2,
+           "description":"Crafted with precision, this ensemble marries classic elegance with contemporary design elements, offering a versatile and chic option for modern women who appreciate timeless style and comfort.Regular Fit Top and Skirt Set encapsulate the essence of modern elegance, versatility, and sophistication. With its premium Georgette fabric, sophisticated design, versatile styling options, flattering fit, and contemporary elegance, it stands as a must-have ensemble for discerning women seeking to make a style statement with grace, confidence, and timeless appeal.",
+           "size":"S"
+       },
+       {
+           "id":7,
+           "title":"White Short dress",
+           "imgUrl":"https://cdn.shopify.com/s/files/1/0411/1065/products/Halter_Cocktail_Lace_Lavender_Dress_1024x1024.jpg?v=1466628142",
+           "category":"Women",
+           "price":420,
+           "rating":4,
+           "description":"Step into summer with our enchanting red dress! Picture yourself dancing through sunny days in this whimsical ensemble. Crafted from sheer fabric with delicate embroidered prints, it features a round high neck and sleeveless for a touch of elegance. The mock wrap front and ruffle detailing add a playful twist to your summer wardrobe.",
+           "size":"M"
+       },
+       {   
+           "id":8,
+           "title":"Denim Skirt",
+           "imgUrl":"https://i.pinimg.com/originals/2c/cc/92/2ccc92081e2263c00c1aabbabdd73bc3.jpg",
+           "category":"Women",
+           "price":550,
+           "rating":5,
+           "description":"Discover timeless style with our women's denim skirt, a versatile addition to your wardrobe. Its classic silhouette flatters every figure, while the high quality material ensures long-lasting performance. Ideal for pairing with everything from casual tees and elegant blouses, it transitions effortlessly from day to night. Denim Skirt promises to be your new favorite go-to piece for any ocassion.",
+           "size":"XXL"
+       },
+       {
+           "id":9,
+           "title":"Dungaree",
+           "imgUrl":"https://i.pinimg.com/736x/5f/0e/bc/5f0ebcdf99886de36b16461b6c6e17d8.jpg",
+           "category":"Kids",
+           "price":250,
+           "rating":3,
+           "description":"This regular-fit dungaree in the display has two adjustable shoulder straps, comes with T-Shirt, and has an elastic waistband and button closure on the side. These dungaree offer a great solution to casual wear. Give your little champ wardrobe a bit more variety with this dungaree. While it's trendy and has a cute pattern will make the kid look stylish. These dungaree are the perfect choice for any casual occasion.",
+           "size":"M"
+       },
+       {
+           "id":10,
+           "title":"Frock",
+           "imgUrl":"https://i.pinimg.com/736x/6e/08/0c/6e080c8c10752f3a976845f928bece80.jpg",
+           "category":"Kids",
+           "price":300,
+           "rating":2,
+           "description":"Elevate your baby girl's style and comfort with the Extra Soft Mulmul Cotton Frock. This charming ensemble is thoughtfully designed to offer your little one the best in both fashion and comfort. Crafted from premium mulmul cotton fabric, renowned for its softness and breathability, this jhabla frok set ensures your baby's delicate skin stays cozy all day long.",
+           "size":"XL"
+       },
+       {
+           "id":11,
+           "title":"Snowsuit",
+           "imgUrl":"https://i.pinimg.com/736x/90/ef/d6/90efd6925756d3cee101a449c784a906.jpg",
+           "category":"Kids",
+           "price":550,
+           "rating":5,
+           "description":"This unisex baby flannel jumpsuit is a cosy and adorable outfit for your little one. Its classical style and cosplay design make it a delightful choice for playtime or special occasions. The soft and snug fabric ensures your baby stays warm and comfortable, while the hooded romper style offers added warmth and protection. Crafted with care and attention to detail, this jumpsuit promises exceptional quality and durability. Dress your little one in style and comfort with this delightful flannel jumpsuit.",
+           "size":"S"
+       },
+       {
+           "id":12,
+           "title":"Babysuit",
+           "imgUrl":"https://i.pinimg.com/736x/ae/8d/79/ae8d791a4be0d4831f394f2a8325f2a6.jpg",
+           "category":"Kids",
+           "price":400,
+           "rating":4,
+           "description":"Welcome your little one in style with this adorable 'Just Arrived' baby bodysuit romper! Made from 100% soft cotton, this cozy bodysuit keeps your baby comfortable all day long. Designed for easy wear, this romper features convenient snap closures for quick diaper changes, while the stretchy fabric ensures a snug but comfy fit. Whether for your own bundle of joy or as a thoughtful present for a loved one, this newborn baby outfit is a must-have in every baby's wardrobe!",
+           "size":"M"
+       }]
+   
