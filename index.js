@@ -1,5 +1,5 @@
-const express= require('express')
-const app =express()
+const express = require("express");
+const app = express();
 
 const cors = require("cors");
 const corsOptions = {
@@ -10,22 +10,20 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const {initializeDatabase}=require('./db/db.connect')
+const { initializeDatabase } = require("./db/db.connect");
 
-const Outfit = require('./models/outfit.models')
-const Category = require('./models/category.models')
+const Outfit = require("./models/outfit.models");
+const Category = require("./models/category.models");
+const Cart = require("./models/Cart.js");
 
 // const {error} =require('console');
 // const { read } = require('fs');
 // const { json } = require('stream/consumers');
 
-
-
-
 // const fs =require('fs')
 // const jsonData =fs.readFileSync('outfits.json','utf-8')
 
-// const outfitsData=JSON.parse(jsonData) 
+// const outfitsData=JSON.parse(jsonData)
 // function seedData(){
 //     try{
 //         for(const outfitData of outfitsData ){
@@ -47,62 +45,61 @@ const Category = require('./models/category.models')
 
 // seedData()
 
-app.use(express.json())
+app.use(express.json());
 
-initializeDatabase()
+initializeDatabase();
 
 //get all outfits from the database
 
 async function readAllOutfits() {
-    try{
-        const outfit = await Outfit.find()
-        return outfit
-    }catch(error){
-        throw error
-    }
+  try {
+    const outfit = await Outfit.find();
+    return outfit;
+  } catch (error) {
+    throw error;
+  }
 }
 
-app.get('/outfit', async(req,res)=>{
-    try{
-        const outfits = await readAllOutfits()
-        if(outfits.length!==0){
-            res.json(outfits)
-        }else{
-            res.status(404).json({error:'outfit not found'})
-        }
-    }catch(error){
-        res.status(500).json({error:'Failed to fetch data from outfits'})
+app.get("/outfit", async (req, res) => {
+  try {
+    const outfits = await readAllOutfits();
+    if (outfits.length !== 0) {
+      res.json(outfits);
+    } else {
+      res.status(404).json({ error: "outfit not found" });
     }
-})
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch data from outfits" });
+  }
+});
 
 //get outfit by id
 async function readOutfitById(outfitId) {
-    try{ 
-        const outfit = await Outfit.findById(outfitId)
-        return outfit
-    }catch(error){
-        throw error
-    }
+  try {
+    const outfit = await Outfit.findById(outfitId);
+    return outfit;
+  } catch (error) {
+    throw error;
+  }
 }
 
-app.get('/outfit/:outfitId', async (req,res)=>{
-    try{
-        const outfit= await readOutfitById(req.params.outfitId)
+app.get("/outfit/:outfitId", async (req, res) => {
+  try {
+    const outfit = await readOutfitById(req.params.outfitId);
 
-        if(outfit){
-            res.json(outfit)
-        }else{
-            res.status(404).json({error:'outfit not found.'})
-        }
-
-    }catch(error){
-        res.status(500).json({error:'failed to fetch data'}) 
+    if (outfit) {
+      res.json(outfit);
+    } else {
+      res.status(404).json({ error: "outfit not found." });
     }
-})
+  } catch (error) {
+    res.status(500).json({ error: "failed to fetch data" });
+  }
+});
 
 //get cart items
 // async function readCartItems() {
-//     try{ 
+//     try{
 //         const outfit = await Outfit.find()
 //         return outfit
 //     }catch(error){
@@ -121,11 +118,9 @@ app.get('/outfit/:outfitId', async (req,res)=>{
 //         }
 
 //     }catch(error){
-//         res.status(500).json({error:'failed to fetch data'}) 
+//         res.status(500).json({error:'failed to fetch data'})
 //     }
 // })
-
-
 
 //get cart item by id
 // async function updateCartItems(detailId, dataToUpdate) {
@@ -151,97 +146,98 @@ app.get('/outfit/:outfitId', async (req,res)=>{
 //     }
 // })
 
-
 // GET all outfits (temporary cart)
-app.get('/cart', async (req, res) => {
-    try {
-      const outfits = await Outfit.find();
-      res.json(outfits);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch data' });
-    }
-  });
-  
-  // Simulated cart item update by ID
-  app.post('/cart/:outfitId', async (req, res) => {
-    try {
-      const updatedCart = await Outfit.findByIdAndUpdate(req.params.outfitId, req.body, { new: true });
-  
-      if (updatedCart) {
-        res.status(200).json(updatedCart); // Return updated item directly
-      } else {
-        res.status(404).json({ error: 'Data not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to update data.' });
-    }
-  });
-  
 
+app.get("/cart", async (req, res) => {
+  try {
+    const cartItems = await Cart.find().populate("product");
+    res.json(cartItems);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch cart items." });
+  }
+});
+
+app.post("/cart/:outfitId", async (req, res) => {
+  try {
+    const existing = await Cart.findOne({ product: req.params.outfitId });
+
+    if (existing) {
+      existing.quantity += 1;
+      const updated = await existing.save();
+      res.json(updated);
+    } else {
+      const newCartItem = new Cart({
+        product: req.params.outfitId,
+        quantity: req.body.quantity || 1,
+      });
+      const saved = await newCartItem.save();
+      res.json(saved);
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update cart." });
+  }
+});
 
 //Category Routes
 //get all categories
 
-
-async function readByCategories(outfitCategory){
-    try{
-        const categories= await Outfit.find({category:outfitCategory})
-        return categories
-    }catch(error){
-        throw error
-    }
+async function readByCategories(outfitCategory) {
+  try {
+    const categories = await Outfit.find({ category: outfitCategory });
+    return categories;
+  } catch (error) {
+    throw error;
+  }
 }
 
-app.get('/outfit/category/:outfitCategory', async (req,res)=>{
-    try{
-        const outfits= await readByCategories(req.params.outfitCategory)
+app.get("/outfit/category/:outfitCategory", async (req, res) => {
+  try {
+    const outfits = await readByCategories(req.params.outfitCategory);
 
-        if(outfits.length>0){ 
-            res.json(outfits)   
-        }else{
-            res.status(404).json({error:'outfit not found'})
-        }        
-    }catch(error){
-        res.status(500).json({error:'failed to fetch data'})
+    if (outfits.length > 0) {
+      res.json(outfits);
+    } else {
+      res.status(404).json({ error: "outfit not found" });
     }
-})
+  } catch (error) {
+    res.status(500).json({ error: "failed to fetch data" });
+  }
+});
 
 // get category by id
 
 // get category by id
 async function readOutfitCategoryById(outfitId) {
-    try{
-        const outfit = await Category.findById(outfitId)
-        return outfit
-    }catch(error){
-        throw error
-    }
+  try {
+    const outfit = await Category.findById(outfitId);
+    return outfit;
+  } catch (error) {
+    throw error;
+  }
 }
 
-app.get('category/:outfitId', async(req,res)=>{
-    try{
-        const category = await readOutfitCategoryById(req.params.outfitId)
+app.get("category/:outfitId", async (req, res) => {
+  try {
+    const category = await readOutfitCategoryById(req.params.outfitId);
 
-        if (category) {
-            res.json({
-                data: {
-                    category: category
-                }
-            });
-        } else {
-            res.status(404).json({ error: 'Category not found' });
-        }
-
-    }catch(error){
-        res.status(500).json({error:'Failed to fetch data.'})
+    if (category) {
+      res.json({
+        data: {
+          category: category,
+        },
+      });
+    } else {
+      res.status(404).json({ error: "Category not found" });
     }
-})   
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch data." });
+  }
+});
 
-const PORT =5000
-app.listen(PORT, ()=>{
-    console.log(`Server is running on PORT ${PORT}`)
-})
- 
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on PORT ${PORT}`);
+});
 
 // const express = require('express');
 // const app = express();
@@ -357,10 +353,3 @@ app.listen(PORT, ()=>{
 // app.listen(PORT, () => {
 //     console.log(`Server is running on PORT ${PORT}`);
 // });
-
-
-
-
-
-
-
