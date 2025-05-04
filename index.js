@@ -100,6 +100,58 @@ app.get('/outfit/:outfitId', async (req,res)=>{
     }
 })
 
+//get cart items
+async function readCartItems() {
+    try{ 
+        const outfit = await Outfit.find()
+        return outfit
+    }catch(error){
+        throw error
+    }
+}
+
+app.get('/cart', async (req,res)=>{
+    try{
+        const outfit= await readCartItems(req.params.outfitId)
+
+        if(outfit){
+            res.json(outfit)
+        }else{
+            res.status(404).json({error:'cart items not found.'})
+        }
+
+    }catch(error){
+        res.status(500).json({error:'failed to fetch data'}) 
+    }
+})
+
+
+
+//get cart item by id
+async function updateCartItems(detailId, dataToUpdate) {
+    try{
+        const updatedCart= await Outfit.findByIdAndUpdate(detailId,dataToUpdate,{new:true})
+        return updatedCart
+    }catch(error){
+        throw error
+    }
+}
+
+app.post('/cart/:outfitId', async(req,res)=>{
+    try{
+        const updatedCart= await updateCartItems(req.params.detailId, req.body)
+
+        if(updatedCart){
+            res.status(200).json({message:'cart items updated successfully.'})
+        }else{
+            res.status(404).json({error:'data not found'})
+        }
+    }catch(error){
+        res.status(500).json({error:'failed to update data.'})
+    }
+})
+
+
 //Category Routes
 //get all categories
 
@@ -278,3 +330,10 @@ app.listen(PORT, ()=>{
 // app.listen(PORT, () => {
 //     console.log(`Server is running on PORT ${PORT}`);
 // });
+
+
+
+
+
+
+
