@@ -101,55 +101,82 @@ app.get('/outfit/:outfitId', async (req,res)=>{
 })
 
 //get cart items
-async function readCartItems() {
-    try{ 
-        const outfit = await Outfit.find()
-        return outfit
-    }catch(error){
-        throw error
-    }
-}
+// async function readCartItems() {
+//     try{ 
+//         const outfit = await Outfit.find()
+//         return outfit
+//     }catch(error){
+//         throw error
+//     }
+// }
 
-app.get('/cart', async (req,res)=>{
-    try{
-        const outfit= await readCartItems(req.params.outfitId)
+// app.get('/cart', async (req,res)=>{
+//     try{
+//         const outfit= await readCartItems(req.params.outfitId)
 
-        if(outfit){
-            res.json(outfit)
-        }else{
-            res.status(404).json({error:'cart items not found.'})
-        }
+//         if(outfit){
+//             res.json(outfit)
+//         }else{
+//             res.status(404).json({error:'cart items not found.'})
+//         }
 
-    }catch(error){
-        res.status(500).json({error:'failed to fetch data'}) 
-    }
-})
+//     }catch(error){
+//         res.status(500).json({error:'failed to fetch data'}) 
+//     }
+// })
 
 
 
 //get cart item by id
-async function updateCartItems(detailId, dataToUpdate) {
-    try{
-        const updatedCart= await Outfit.findByIdAndUpdate(detailId,dataToUpdate,{new:true})
-        return updatedCart
-    }catch(error){
-        throw error
-    }
-}
+// async function updateCartItems(detailId, dataToUpdate) {
+//     try{
+//         const updatedCart= await Outfit.findByIdAndUpdate(detailId,dataToUpdate,{new:true})
+//         return updatedCart
+//     }catch(error){
+//         throw error
+//     }
+// }
 
-app.post('/cart/:outfitId', async(req,res)=>{
-    try{
-        const updatedCart= await updateCartItems(req.params.detailId, req.body)
+// app.post('/cart/:outfitId', async(req,res)=>{
+//     try{
+//         const updatedCart= await updateCartItems(req.params.detailId, req.body)
 
-        if(updatedCart){
-            res.status(200).json({message:'cart items updated successfully.'})
-        }else{
-            res.status(404).json({error:'data not found'})
-        }
-    }catch(error){
-        res.status(500).json({error:'failed to update data.'})
+//         if(updatedCart){
+//             res.status(200).json({message:'cart items updated successfully.'})
+//         }else{
+//             res.status(404).json({error:'data not found'})
+//         }
+//     }catch(error){
+//         res.status(500).json({error:'failed to update data.'})
+//     }
+// })
+
+
+// GET all outfits (temporary cart)
+app.get('/cart', async (req, res) => {
+    try {
+      const outfits = await Outfit.find();
+      res.json(outfits);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch data' });
     }
-})
+  });
+  
+  // Simulated cart item update by ID
+  app.post('/cart/:outfitId', async (req, res) => {
+    try {
+      const updatedCart = await Outfit.findByIdAndUpdate(req.params.outfitId, req.body, { new: true });
+  
+      if (updatedCart) {
+        res.status(200).json(updatedCart); // Return updated item directly
+      } else {
+        res.status(404).json({ error: 'Data not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to update data.' });
+    }
+  });
+  
 
 
 //Category Routes
