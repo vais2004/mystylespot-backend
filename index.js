@@ -14,7 +14,7 @@ const { initializeDatabase } = require("./db/db.connect");
 
 const Outfit = require("./models/outfit.models");
 const Category = require("./models/category.models");
-const Cart = require("./models/Cart.js");
+const Cart = require("./models/orderSchema.models.js");
 
 // const {error} =require('console');
 // const { read } = require('fs');
@@ -216,7 +216,7 @@ async function readOutfitCategoryById(outfitId) {
   }
 }
 
-app.get("category/:outfitId", async (req, res) => {
+app.get("/category/:outfitId", async (req, res) => {
   try {
     const category = await readOutfitCategoryById(req.params.outfitId);
 
