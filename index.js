@@ -78,26 +78,40 @@ app.get("/cart", async (req, res) => {
 });
 
 app.post("/cart/:productId", async (req, res) => {
-  const { productId } = req.params;
-  const { quantity = 1 } = req.body;
+  const productId = req.params.productId;
+  let quantity = req.body.quantity;
+
+  // If quantity is not sent or invalid, set it to 1
+  if (!quantity || quantity < 1) {
+    quantity = 1;
+  }
 
   try {
-    // Check if item already exists in cart
-    let cartItem = await Cart.findOne({ product: productId });
+    // Find if the product is already in the cart
+    const existingCartItem = await Cart.findOne({ product: productId });
 
-    if (cartItem) {
-      cartItem.quantity += quantity;
-      await cartItem.save();
-      res.status(200).json({ message: "Quantity updated", cartItem });
+    if (existingCartItem) {
+      // If found, increase the quantity
+      existingCartItem.quantity = existingCartItem.quantity + quantity;
+      await existingCartItem.save();
+      res.status(200).json({
+        message: "Quantity updated",
+        cartItem: existingCartItem,
+      });
     } else {
+      // If not found, create a new cart item
       const newCartItem = new Cart({
         product: productId,
-        quantity,
+        quantity: quantity,
       });
       await newCartItem.save();
-      res.status(201).json({ message: "Product added to cart", cartItem: newCartItem });
+      res.status(201).json({
+        message: "Product added to cart",
+        cartItem: newCartItem,
+      });
     }
   } catch (error) {
+    console.log("Error adding to cart:", error);
     res.status(500).json({ error: "Failed to add to cart." });
   }
 });
