@@ -71,6 +71,7 @@ app.get("/outfit/:outfitId", async (req, res) => {
 app.get("/cart", async (req, res) => {
   try {
     const cartItems = await Cart.find().populate("product");
+    console.log(cartItems);  // Check what the product field contains
     res.json(cartItems);
   } catch (error) {
     res.status(500).json({ error: "Failed to get cart items." });
