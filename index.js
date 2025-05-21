@@ -14,7 +14,7 @@ const { initializeDatabase } = require("./db/db.connect");
 
 const Outfit = require("./models/outfit.models");
 const Category = require("./models/category.models");
-const Cart = require("./models/placeOrder.models.js");
+const Cart = require("./models/cartSchema.models.js");
 const Order = require("./models/placeOrder.models.js");
 app.use(express.json());
 
