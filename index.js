@@ -68,39 +68,67 @@ app.get("/outfit/:outfitId", async (req, res) => {
   }
 });
 
-// Get all items in the cart
 app.get("/cart", async (req, res) => {
   try {
-    // Find all cart items and also get details of the product (outfit)
     const cartItems = await Cart.find().populate("product");
-    res.json(cartItems); // Send the cart items back as JSON
+    res.json(cartItems);
   } catch (error) {
     res.status(500).json({ error: "Failed to get cart items." });
   }
 });
 
-// Add an outfit to the cart or increase quantity if it's already there
-app.post("/cart/:outfitId", async (req, res) => {
-  try {
-    // Check if the outfit is already in the cart
-    const existingItem = await Cart.findOne({ product: req.params.outfitId });
+app.post("/cart/:productId", async (req, res) => {
+  const { productId } = req.params;
+  const { quantity = 1 } = req.body;
 
-    if (existingItem) {
-      // If it exists, increase the quantity by 1
-      existingItem.quantity += 1;
-      const updatedItem = await existingItem.save();
-      res.json(updatedItem); // Send back updated cart item
+  try {
+    // Check if item already exists in cart
+    let cartItem = await Cart.findOne({ product: productId });
+
+    if (cartItem) {
+      cartItem.quantity += quantity;
+      await cartItem.save();
+      res.status(200).json({ message: "Quantity updated", cartItem });
     } else {
-      // If it does not exist, create a new cart item with quantity 1 or from request body
       const newCartItem = new Cart({
-        product: req.params.outfitId,
-        quantity: req.body.quantity || 1,
+        product: productId,
+        quantity,
       });
-      const savedItem = await newCartItem.save();
-      res.json(savedItem); // Send back the new cart item
+      await newCartItem.save();
+      res.status(201).json({ message: "Product added to cart", cartItem: newCartItem });
     }
   } catch (error) {
-    res.status(500).json({ error: "Failed to add item to cart." });
+    res.status(500).json({ error: "Failed to add to cart." });
+  }
+});
+
+//Update quantity of a specific cart item
+app.put("/cart/:cartItemId", async (req, res) => {
+  const { cartItemId } = req.params;
+  const { quantity } = req.body;
+
+  try {
+    const updatedItem = await Cart.findByIdAndUpdate(
+      cartItemId,
+      { quantity },
+      { new: true }
+    ).populate("product");
+
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update cart item." });
+  }
+});
+
+// Remove an item from the cart
+app.delete("/cart/:cartItemId", async (req, res) => {
+  const { cartItemId } = req.params;
+
+  try {
+    await Cart.findByIdAndDelete(cartItemId);
+    res.json({ message: "Item removed from cart." });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete cart item." });
   }
 });
 
